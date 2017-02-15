@@ -1,4 +1,5 @@
 <?php
+	// Change these to actual server details
 	$server = '127.0.0.1';
 	$username = 'root';
 	$password = 'root';
