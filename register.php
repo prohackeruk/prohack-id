@@ -1,5 +1,4 @@
 <?php
-
 	/* TODO */
 	// Confirm that password and confirm password fields match
 	// Don't allow duplicate user entries
@@ -33,7 +32,6 @@
 			$message = 'Failed to add user';
 		}
 	}
-
 ?>
 
 <!DOCTYPE html>

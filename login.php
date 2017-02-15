@@ -1,5 +1,4 @@
 <?php
-
 	session_start();
 
 	if (isset($_SESSION['user_id'])) {
@@ -31,7 +30,6 @@
 			$message = 'Log in error';
 		}
 	}
-
 ?>
 
 <!DOCTYPE html>
