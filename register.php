@@ -27,7 +27,8 @@
 		$stmt->bindParam(':password', password_hash($_POST['password'], PASSWORD_BCRYPT)); // Hash the password before it goes in the database
 		
 		if ($stmt->execute()) {
-			$message = 'Successfully added user';
+			$message = 'Successfully added user, redirecting...';
+			header("Location: /login.php"); // Only redirect if you logged in successfully
 		} else {
 			$message = 'Failed to add user';
 		}
