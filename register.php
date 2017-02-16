@@ -1,10 +1,4 @@
 <?php
-	/* TODO */
-	// Confirm that password and confirm password fields match
-	// Don't allow duplicate user entries
-	// Verify emails?
-	// Redirect to login on successful register
-
 	session_start();
 
 	if (isset($_SESSION['user_id'])) {
@@ -16,7 +10,9 @@
 
 	$message = '';
 
-	if (!empty($_POST['email']) && !empty($_POST['password'])){
+	if ($_POST['password'] != $_POST['confirm_password']) {
+		$message = 'Your password and confirmation do not match';
+	} else {
 		// The user has tried to register correctly, enter in database
 		$sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
 		$stmt = $conn->prepare($sql);
