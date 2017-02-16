@@ -12,6 +12,8 @@
 
 	if ($_POST['password'] != $_POST['confirm_password']) {
 		$message = 'Your password and confirmation do not match';
+	} else if (!preg_match($email_pattern, $_POST['email'])) {
+		$message = 'Please enter a valid email address';
 	} else {
 		// The user has tried to register correctly, enter in database
 		$sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
