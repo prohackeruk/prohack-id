@@ -1,12 +1,13 @@
 <?php
 	session_start();
 
+	require 'database.php';
+	require 'strings.php';
+
 	if (isset($_SESSION['user_id'])) {
-		$message = 'You are already logged in, redirecting...';
+		$message = $ALREADY_LOGGED_IN_ERROR;
 		header("Location: /");
 	}
-
-	require 'database.php';
 
 	$message = '';
 
@@ -21,13 +22,13 @@
 		$results = $records->fetch(PDO::FETCH_ASSOC);
 
 		if(count($results) > 0 && password_verify($_POST['password'], $results['password'])) {
-			$message = 'Log in successful, redirecting...';
+			$message = $LOGIN_SUCCESS;
 			// Create a session
 			$_SESSION['user_id'] = $results['id'];
 			header("Location: /");
 
 		} else {
-			$message = 'Log in error';
+			$message = $PASSWORD_VERIFY_ERROR;
 		}
 	}
 ?>

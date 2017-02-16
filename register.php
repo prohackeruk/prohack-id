@@ -1,33 +1,47 @@
 <?php
 	session_start();
 
+	require 'database.php';
+	require 'strings.php';
+
 	if (isset($_SESSION['user_id'])) {
-		$message = 'You are already logged in, redirecting...';
+		$message = $ALREADY_LOGGED_IN_ERROR;
 		header("Location: /");
 	}
-
-	require 'database.php';
 
 	$message = '';
 
 	if ($_POST['password'] != $_POST['confirm_password']) {
-		$message = 'Your password and confirmation do not match';
+		$message = $PASSWORD_CONFIRM_NO_MATCH_ERROR;
 	} else if (!preg_match($email_pattern, $_POST['email'])) {
-		$message = 'Please enter a valid email address';
+		$message = $EMAIL_NOT_VALID_ERROR;
 	} else {
-		// The user has tried to register correctly, enter in database
-		$sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
-		$stmt = $conn->prepare($sql);
+		// Look for the entered email address in the database
+		$sql = "SELECT id,email,password FROM users WHERE email = :email";
 
-		// Bound parameters prevent SQL injection attacks
-		$stmt->bindParam(':email', $_POST['email']);
-		$stmt->bindParam(':password', password_hash($_POST['password'], PASSWORD_BCRYPT)); // Hash the password before it goes in the database
-		
-		if ($stmt->execute()) {
-			$message = 'Successfully added user, redirecting...';
-			header("Location: /login.php"); // Only redirect if you logged in successfully
+		$records = $conn->prepare($sql);
+		$records->bindParam(':email', $_POST['email']);
+		$records->execute();
+
+		$results = $records->fetch(PDO::FETCH_ASSOC);
+		// If you find one, don't allow the user to register
+		if (count($results) != ) {
+			$message = $USER_ALREADY_EXISTS_ERROR;
 		} else {
-			$message = 'Failed to add user';
+			// The user has tried to register correctly, enter in database
+			$sql = "INSERT INTO users (email, password) VALUES (:email, :password)";
+			$stmt = $conn->prepare($sql);
+
+			// Bound parameters prevent SQL injection attacks
+			$stmt->bindParam(':email', $_POST['email']);
+			$stmt->bindParam(':password', password_hash($_POST['password'], PASSWORD_BCRYPT)); // Hash the password before it goes in the database
+			
+			if ($stmt->execute()) {
+				$message = $REGISTER_SUCCESS;
+				header("Location: /login.php"); // Redirect if you signed up successfully
+			} else {
+				$message = $REGISTER_FAILED;
+			}
 		}
 	}
 ?>

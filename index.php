@@ -2,6 +2,7 @@
 	session_start();
 
 	require 'database.php';
+	require 'strings.php';
 
 	$user = NULL;
 
@@ -16,7 +17,6 @@
 		if (count($results) > 0) {
 			$user = $results;
 		}
-
 	}
 ?>
 
