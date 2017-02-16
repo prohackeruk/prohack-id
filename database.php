@@ -1,6 +1,6 @@
 <?php
 	// Change these to actual server details
-	$server = '127.0.0.1';
+	$server = 'localhost';
 	$username = 'root';
 	$password = 'root';
 	$database = 'prohack-id';
