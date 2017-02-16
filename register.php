@@ -62,7 +62,11 @@
 	<?php endif; ?>
 
 	<form action="register.php" method="POST">
-		<input type="text" name="email" placeholder="Enter your email" required>
+		<?php if (isset($_POST['email'])): ?>
+			<input type="text" name="email" placeholder="<?= htmlspecialchars($_POST['email']) ?>" value="<?= htmlspecialchars($_POST['email']) ?>" required>
+		<?php else: ?>
+			<input type="text" name="email" placeholder="Enter your email" required>
+		<?php endif; ?>
 		<input type="password" name="password" placeholder="Choose a password" required>
 		<input type="password" name="confirm_password" placeholder="Confirm password" required>
 		<input type="submit" name="submit">

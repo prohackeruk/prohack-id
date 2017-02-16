@@ -49,7 +49,12 @@
 	<?php endif; ?>
 
 	<form action="login.php" method="POST">
-		<input type="text" name="email" placeholder="Enter your email" required>
+		<!-- Make the email address the placeholder -->
+		<?php if (isset($_POST['email'])): ?>
+			<input type="text" name="email" placeholder="Enter your email" value="<?= htmlspecialchars($_POST['email']) ?>" required>
+		<?php else: ?>
+			<input type="text" name="email" placeholder="Enter your email" required>
+		<?php endif; ?>
 		<input type="password" name="password" placeholder="Enter your password" required>
 		<input type="submit" name="submit">
 	</form>
