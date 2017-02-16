@@ -13,7 +13,7 @@
 
 	if ($_POST['password'] != $_POST['confirm_password']) {
 		$message = $PASSWORD_CONFIRM_NO_MATCH_ERROR;
-	} else if (!preg_match($email_pattern, $_POST['email'])) {
+	} else if (!preg_match($EMAIL_PATTERN, $_POST['email'])) {
 		$message = $EMAIL_NOT_VALID_ERROR;
 	} else {
 		// Look for the entered email address in the database
@@ -25,7 +25,7 @@
 
 		$results = $records->fetch(PDO::FETCH_ASSOC);
 		// If you find one, don't allow the user to register
-		if (count($results) != ) {
+		if (count($results) != 0) {
 			$message = $USER_ALREADY_EXISTS_ERROR;
 		} else {
 			// The user has tried to register correctly, enter in database
