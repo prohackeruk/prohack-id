@@ -63,7 +63,7 @@
 
 	<form action="register.php" method="POST">
 		<?php if (isset($_POST['email'])): ?>
-			<input type="text" name="email" placeholder="<?= htmlspecialchars($_POST['email']) ?>" value="<?= htmlspecialchars($_POST['email']) ?>" required>
+			<input type="text" name="email" placeholder="Enter your email" value="<?= htmlspecialchars($_POST['email']) ?>" required>
 		<?php else: ?>
 			<input type="text" name="email" placeholder="Enter your email" required>
 		<?php endif; ?>
